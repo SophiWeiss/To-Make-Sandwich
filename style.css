@@ -1,3 +1,7 @@
+body {
+  background-color: #808080;
+}
+
 * {
   box-sizing: border-box
 }
@@ -31,7 +35,7 @@ ul li:hover {
 
 h1 {
   font-family: 'Russo One', sans-serif;
-  padding: 20px 30px;
+  padding: 30px 10px 10px 30px;
   text-align: left;
 }
 
@@ -87,12 +91,18 @@ h1 {
 input {
   margin: 7px;
   border: none;
-  border-radius: 0;
+  border-radius: 7px;
   width: 75%;
-    padding: 10px;
+  padding: 10px;
   float: left;
 
   font-size: 16px;
   background-color: #f1eeff;
   font-family: 'Nunito', sans-serif;
+}
+
+.main-container {
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 20px;
 }
