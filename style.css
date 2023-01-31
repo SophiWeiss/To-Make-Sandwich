@@ -1,5 +1,5 @@
 body {
-  background-color: #808080;
+  background-color: #a091ce;
 }
 
 * {
@@ -90,14 +90,15 @@ h1 {
 }
 
 input {
-  margin: 7px;
   border: none;
   border-radius: 7px;
   width: 75%;
   padding: 10px;
   float: left;
+  margin: -0 7px 7px -3px;
+  height: 50px;
 
-  font-size: 16px;
+  font-size: 19px;
   background-color: #f1eeff;
   font-family: 'Nunito', sans-serif;
 }
