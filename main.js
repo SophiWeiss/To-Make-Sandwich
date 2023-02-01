@@ -11,7 +11,8 @@ function checkInput () {
 
     let ul = document.getElementById("ulOfTasks");
     let li = document.createElement("li");
-    li.appendChild(document.createTextNode(inputValue));
+    let currentTime = new Date().toLocaleString();
+    li.appendChild(document.createTextNode(inputValue + " (" + currentTime + ")"));
     ul.appendChild(li);
 
     document.getElementById("textInput").value = "";
