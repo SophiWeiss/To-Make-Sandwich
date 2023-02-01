@@ -13,6 +13,8 @@ document.querySelector('#button-push').onclick = function() {
     let li = document.createElement("li");
     li.appendChild(document.createTextNode(inputValue));
     ul.appendChild(li);
+
+    document.getElementById("textInput").value = "";
     
   }
 }
