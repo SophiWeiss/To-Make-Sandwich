@@ -12,7 +12,12 @@ function checkInput () {
     let ul = document.getElementById("ulOfTasks");
     let li = document.createElement("li");
     let currentTime = new Date().toLocaleString();
-    li.appendChild(document.createTextNode(inputValue + " (" + currentTime + ")"));
+    let currentTimeSpan = document.createElement("span");
+    currentTimeSpan.style.fontSize = "11px";
+    currentTimeSpan.style.color = "grey";
+    currentTimeSpan.appendChild(document.createTextNode(" (" + currentTime + ")"));
+    li.appendChild(document.createTextNode(inputValue));
+    li.appendChild(currentTimeSpan);
     ul.appendChild(li);
 
     document.getElementById("textInput").value = "";
