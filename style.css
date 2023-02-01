@@ -20,6 +20,7 @@ ul li {
   background: #d8cef1;
   font-size: 18px;
   font-family: 'Nunito', sans-serif;
+  word-break: break-word;
 
   cursor: pointer;
   transition: 0.2s;
@@ -111,4 +112,6 @@ input:focus {
   background-color: #ffffff;
   margin: 20px;
   border-radius: 20px;
+  max-width: 1000px;
+  min-width: 400px;
 }
