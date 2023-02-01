@@ -1,5 +1,18 @@
 document.querySelector('#button-push').onclick = function() {
-  if (document.querySelector('#textInput').value.length === 0 && ' ') {
+  
+  let inputValue = document.getElementById("textInput").value;
+  
+  if (inputValue.trim().length === 0) {
     alert("Please enter at least something🤍")
+    
+  }
+  
+  else {
+
+    let ul = document.getElementById("ulOfTasks");
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(inputValue));
+    ul.appendChild(li);
+    
   }
 }

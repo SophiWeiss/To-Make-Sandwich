@@ -103,6 +103,10 @@ input {
   font-family: 'Nunito', sans-serif;
 }
 
+input:focus {
+  outline-color: #be75d0;
+}
+
 .main-container {
   background-color: #ffffff;
   margin: 20px;
