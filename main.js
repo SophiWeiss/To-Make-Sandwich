@@ -1,4 +1,4 @@
-document.querySelector('#button-push').onclick = function() {
+function checkInput () {
   
   let inputValue = document.getElementById("textInput").value;
   
@@ -17,4 +17,11 @@ document.querySelector('#button-push').onclick = function() {
     document.getElementById("textInput").value = "";
     
   }
+  
 }
+
+document.getElementById("textInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    document.getElementById("button-push").click();
+  }
+});
