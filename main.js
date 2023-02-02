@@ -29,15 +29,25 @@ function checkInput () {
     editButton.addEventListener("click", function() {
       let input = document.createElement("input");
       input.value = li.firstChild.nodeValue;
-      li.removeChild(li.firstChild);
-      li.insertBefore(input, li.firstChild);
-
+      // li.removeChild(li.firstChild);
+      // li.insertBefore(input, li.firstChild);
+      li.replaceChild(input, li.firstChild);
+      editButton.remove()
+      deleteButton.remove()
+      currentTimeSpan.remove()
+      
       let saveButton = document.createElement("button");
       saveButton.appendChild(document.createTextNode("Save"));
       saveButton.addEventListener("click", function() {
         let text = document.createTextNode(input.value);
         li.removeChild(input);
         li.insertBefore(text, li.firstChild);
+        li.appendChild(editButton)
+        li.appendChild(deleteButton)
+        li.appendChild(currentTimeSpan)
+        
+        saveButton.remove()
+        cancelButton.remove()
       });
       li.appendChild(saveButton);
 
@@ -47,6 +57,14 @@ function checkInput () {
         let text = document.createTextNode(input.value);
         li.removeChild(input);
         li.insertBefore(text, li.firstChild);
+        li.appendChild(editButton)
+        li.appendChild(deleteButton)
+        li.appendChild(currentTimeSpan)
+        
+        saveButton.remove()
+        cancelButton.remove()
+
+        input.value = 
       });
       li.appendChild(cancelButton);
     });
