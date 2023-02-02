@@ -19,7 +19,9 @@ function checkInput () {
     currentTimeSpan.style.color = "grey";
     currentTimeSpan.appendChild(document.createTextNode(" (" + currentTime + ")"));
 
-    li.appendChild(document.createTextNode(inputValue));
+    const span = document.createElement('span')
+    span.textContent = inputValue
+    li.appendChild(span);
     li.appendChild(currentTimeSpan);
 
     
@@ -95,10 +97,14 @@ function checkInput () {
 
     //done function
     li.addEventListener("click", function() {
-      if (this.style.textDecoration === "line-through") {
-        this.style.textDecoration = "none";
+      if (span.style.textDecoration === "line-through") {
+        span.style.textDecoration = "none";
+        li.appendChild(editButton);
+        deleteButton.style.borderRadius = "0 5px 5px 0";
       } else {
-        this.style.textDecoration = "line-through";
+        span.style.textDecoration = "line-through";
+        editButton.remove()
+        deleteButton.style.borderRadius = "5px";
       }
     });
 
@@ -110,7 +116,7 @@ function checkInput () {
     editButton.style.backgroundColor = "#d074d7";
     editButton.style.color = "white";
     editButton.style.padding = "5px 7px";
-    editButton.style.borderRadius = "5px";
+    editButton.style.borderRadius = "5px 0 0 5px";
     editButton.style.cursor = "pointer";
     editButton.style.border = 'none'
     editButton.style.float = "right";
@@ -118,7 +124,7 @@ function checkInput () {
     deleteButton.style.backgroundColor = "#7e74d7";
     deleteButton.style.color = "white";
     deleteButton.style.padding = "5px 7px";
-    deleteButton.style.borderRadius = "5px";
+    deleteButton.style.borderRadius = "0 5px 5px 0";
     deleteButton.style.cursor = "pointer";
     deleteButton.style.border = 'none'
     deleteButton.style.float = "right";
@@ -132,15 +138,3 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
     document.getElementById("button-push").click();
   }
 });
-
-let line = document.querySelectorAll("li");
-for (let i = 0; i < line.length; i++) {
-  line[i].addEventListener("click", function() {
-    if (this.style.textDecoration === "line-through") {
-      this.style.textDecoration = "none";
-    } else {
-      this.style.textDecoration = "line-through";
-      
-    }
-  });
-}
