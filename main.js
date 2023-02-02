@@ -93,6 +93,14 @@ function checkInput () {
     li.appendChild(deleteButton);
     li.appendChild(editButton);
 
+    //done function
+    li.addEventListener("click", function() {
+      if (this.style.textDecoration === "line-through") {
+        this.style.textDecoration = "none";
+      } else {
+        this.style.textDecoration = "line-through";
+      }
+    });
 
     ul.appendChild(li);
 
