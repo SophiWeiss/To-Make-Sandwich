@@ -73,6 +73,9 @@ function checkInput () {
 
         saveButton.remove()
         cancelButton.remove()
+        li.click()
+        li.click()
+        li.click()
       });
       li.appendChild(saveButton);
 
@@ -93,6 +96,9 @@ function checkInput () {
         li.appendChild(currentTimeSpan)
         saveButton.remove()
         cancelButton.remove()
+        li.click()
+        li.click()
+        li.click()
       });
       li.appendChild(cancelButton);
       
@@ -108,21 +114,6 @@ function checkInput () {
     //appending two main buttons
     li.appendChild(deleteButton);
     li.appendChild(editButton);
-
-    //done function
-    li.addEventListener("click", function() {
-      if (span.style.textDecoration === "line-through") {
-        span.style.textDecoration = "none";
-        if (li.firstElementChild.tagName !== 'INPUT')
-          li.appendChild(editButton);
-        deleteButton.style.borderRadius = "0 5px 5px 0";
-      } else {
-        span.style.textDecoration = "line-through";
-        if (li.firstElementChild.tagName !== 'INPUT')
-          editButton.remove()
-        deleteButton.style.borderRadius = "5px";
-      }
-    });
 
     ul.appendChild(li);
 
