@@ -29,8 +29,31 @@ function checkInput () {
     let editButton = document.createElement("button");
     editButton.appendChild(document.createTextNode("Edit"));
 
+    //delete button
+    let deleteButton = document.createElement("button");
+    deleteButton.appendChild(document.createTextNode("Delete"));
+
+    deleteButton.addEventListener("click", function() {
+      ul.removeChild(li);
+    });
+
+    //done function
+    li.addEventListener("click", function() {
+      if (li.firstElementChild.tagName !== 'INPUT') {
+        if (span.style.textDecoration === "line-through") {
+          span.style.textDecoration = "none";
+          li.appendChild(editButton);
+          deleteButton.style.borderRadius = "0 5px 5px 0";
+        } else {
+          span.style.textDecoration = "line-through";
+          editButton.remove()
+          deleteButton.style.borderRadius = "5px";
+        }
+      }
+    });
+
     editButton.addEventListener("click", function() {
-      let originalText = li.firstChild.nodeValue;
+      let originalText = li.firstChild.firstChild.nodeValue;
       let input = document.createElement("input");
       input.value = originalText;
       li.replaceChild(input, li.firstChild);
@@ -41,9 +64,9 @@ function checkInput () {
       let saveButton = document.createElement("button");
       saveButton.appendChild(document.createTextNode("Save"));
       saveButton.addEventListener("click", function() {
-        let text = document.createTextNode(input.value);
+        span.textContent = input.value
         li.removeChild(input);
-        li.insertBefore(text, li.firstChild);
+        li.insertBefore(span, li.firstChild);
         li.appendChild(deleteButton)
         li.appendChild(editButton)
         li.appendChild(currentTimeSpan)
@@ -57,15 +80,14 @@ function checkInput () {
       saveButton.style.backgroundColor = "#d074d7";
       saveButton.style.color = "white";
       saveButton.style.padding = "5px 7px";
-      saveButton.style.borderRadius = "5px";
+      saveButton.style.borderRadius = "5px 0 0 5px";
       saveButton.style.cursor = "pointer";
       saveButton.style.border = 'none'
 
       let cancelButton = document.createElement("button");
       cancelButton.appendChild(document.createTextNode("Cancel"));
       cancelButton.addEventListener("click", function() {
-        li.removeChild(input);
-        li.insertBefore(document.createTextNode(originalText), li.firstChild);
+        li.replaceChild(span, input)
         li.appendChild(deleteButton)
         li.appendChild(editButton)
         li.appendChild(currentTimeSpan)
@@ -78,17 +100,9 @@ function checkInput () {
       cancelButton.style.backgroundColor = "#7e74d7";
       cancelButton.style.color = "white";
       cancelButton.style.padding = "5px 7px";
-      cancelButton.style.borderRadius = "5px";
+      cancelButton.style.borderRadius = "0 5px 5px 0";
       cancelButton.style.cursor = "pointer";
       cancelButton.style.border = 'none'
-    });
-
-    //delete button
-    let deleteButton = document.createElement("button");
-    deleteButton.appendChild(document.createTextNode("Delete"));
-
-    deleteButton.addEventListener("click", function() {
-      ul.removeChild(li);
     });
 
     //appending two main buttons
@@ -99,11 +113,13 @@ function checkInput () {
     li.addEventListener("click", function() {
       if (span.style.textDecoration === "line-through") {
         span.style.textDecoration = "none";
-        li.appendChild(editButton);
+        if (li.firstElementChild.tagName !== 'INPUT')
+          li.appendChild(editButton);
         deleteButton.style.borderRadius = "0 5px 5px 0";
       } else {
         span.style.textDecoration = "line-through";
-        editButton.remove()
+        if (li.firstElementChild.tagName !== 'INPUT')
+          editButton.remove()
         deleteButton.style.borderRadius = "5px";
       }
     });
