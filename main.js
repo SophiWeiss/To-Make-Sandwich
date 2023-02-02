@@ -133,13 +133,14 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
   }
 });
 
-let lis = document.querySelectorAll("li");
-for (let i = 0; i < lis.length; i++) {
-  lis[i].addEventListener("click", function() {
+let line = document.querySelectorAll("li");
+for (let i = 0; i < line.length; i++) {
+  line[i].addEventListener("click", function() {
     if (this.style.textDecoration === "line-through") {
       this.style.textDecoration = "none";
     } else {
       this.style.textDecoration = "line-through";
+      
     }
   });
 }
