@@ -100,8 +100,6 @@ function checkInput () {
       //style settings for saveButton
       saveButton.className = 'saveButton'
     });
-    
-    
 
     //appending two main buttons
     li.appendChild(deleteButton);
