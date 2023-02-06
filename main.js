@@ -135,6 +135,33 @@ function checkInput () {
     deleteButton.style.cursor = "pointer";
     deleteButton.style.border = 'none'
     deleteButton.style.float = "right";
+
+    const todoList = document.querySelector("#ulOfTasks");
+    // const newTodoItem = document.querySelector("#textInput");
+    // const addTodoItem = document.querySelector("#button-push");
+
+    // Load to-do items from local storage
+    const loadTodos = () => {
+      const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+      todos.forEach(todo => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+      ${todo.text}
+      <small>${todo.currentTimeSpan}</small>
+      <button id="editButton" >Edit</button>
+      <button id="deleteButton" >Delete</button>
+    `;
+        todoList.appendChild(li);
+      });
+    };
+
+    // Save to-do items to local storage
+    const saveTodos = todos => {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    };
+
+    loadTodos();
     
   }
   
@@ -145,3 +172,111 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
     document.getElementById("button-push").click();
   }
 });
+
+//
+//   const taskInput = document.getElementById("textInput");
+//   const addTaskButton = document.getElementById("button-push");
+//   const tasksList = document.getElementById("ulOfTasks");
+//
+//   // Check if there are any tasks stored in local storage
+//   if (localStorage.getItem("tasks")) {
+//   // If there are, retrieve the tasks and display them
+//   let tasks = JSON.parse(localStorage.getItem("tasks"));
+//   tasks.forEach(function (task) {
+//   let taskItem = document.createElement("li");
+//   taskItem.innerHTML = task;
+//   tasksList.appendChild(taskItem);
+// });
+// }
+//
+//   // Add a task to the list and store it in local storage
+//   addTaskButton.addEventListener("click", function () {
+//   let task = taskInput.value;
+//   if (task) {
+//   let taskItem = document.createElement("li");
+//   taskItem.innerHTML = task;
+//   tasksList.appendChild(taskItem);
+//
+//   let tasks = [];
+//   if (localStorage.getItem("tasks")) {
+//   tasks = JSON.parse(localStorage.getItem("tasks"));
+// }
+//   tasks.push(task);
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+//
+//   taskInput.value = "";
+// }
+// });
+
+
+// // Save the tasks to local storage
+// function saveTasksToLocalStorage() {
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+// }
+//
+// // Load the tasks from local storage
+// function loadTasksFromLocalStorage() {
+//   const storedTasks = localStorage.getItem("tasks");
+//   if (storedTasks) {
+//     tasks = JSON.parse(storedTasks);
+//   }
+// }
+//
+// // Call loadTasksFromLocalStorage when the page loads
+// window.addEventListener("load", loadTasksFromLocalStorage);
+//
+// // Call saveTasksToLocalStorage when the page unloads (e.g. when the user closes the tab)
+// window.addEventListener("beforeunload", saveTasksToLocalStorage);
+
+
+// let tasks = [];
+//
+// function addTask() {
+//   let task = document.getElementById("textInput").value;
+//   tasks.push(task);
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+//   displayTasks();
+// }
+//
+// window.onload = function() {
+//   tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+//   displayTasks();
+// };
+
+// // Get the task input field
+// let taskInput = document.getElementById("textInput");
+
+// // Check if the tasks are stored in local storage
+// if (localStorage.getItem("tasks")) {
+//   tasks = JSON.parse(localStorage.getItem("tasks"));
+// } else {
+//   tasks = [];
+// }
+//
+// // Add a new task to the list
+// function addTask() {
+//   let task = taskInput.value;
+//   tasks.push(task);
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+//   taskInput.value = "";
+//   displayTasks();
+// }
+//
+// // Display the tasks
+// function displayTasks() {
+//   let taskList = document.getElementById("taskList");
+//   taskList.innerHTML = "";
+//   for (let i = 0; i < tasks.length; i++) {
+//     let task = tasks[i];
+//     let li = document.createElement("li");
+//     li.innerHTML = task;
+//     taskList.appendChild(li);
+//   }
+// }
+//
+// // Call the displayTasks function when the page loads
+// window.onload = function() {
+//   displayTasks();
+// };
+
+
