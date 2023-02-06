@@ -61,6 +61,24 @@ function checkInput () {
       deleteButton.remove()
       currentTimeSpan.remove()
 
+      let cancelButton = document.createElement("button");
+      cancelButton.appendChild(document.createTextNode("Cancel"));
+      cancelButton.addEventListener("click", function() {
+        li.replaceChild(span, input)
+        li.appendChild(deleteButton)
+        li.appendChild(editButton)
+        li.appendChild(currentTimeSpan)
+        saveButton.remove()
+        cancelButton.remove()
+        li.click()
+        li.click()
+        li.click()
+      });
+      li.appendChild(cancelButton);
+      
+      //style settings for cancelButton
+      cancelButton.className = 'cancelButton'
+
       let saveButton = document.createElement("button");
       saveButton.appendChild(document.createTextNode("Save"));
       saveButton.addEventListener("click", function() {
@@ -80,36 +98,10 @@ function checkInput () {
       li.appendChild(saveButton);
 
       //style settings for saveButton
-      saveButton.style.backgroundColor = "#d074d7";
-      saveButton.style.color = "white";
-      saveButton.style.padding = "5px 7px";
-      saveButton.style.borderRadius = "5px 0 0 5px";
-      saveButton.style.cursor = "pointer";
-      saveButton.style.border = 'none'
-
-      let cancelButton = document.createElement("button");
-      cancelButton.appendChild(document.createTextNode("Cancel"));
-      cancelButton.addEventListener("click", function() {
-        li.replaceChild(span, input)
-        li.appendChild(deleteButton)
-        li.appendChild(editButton)
-        li.appendChild(currentTimeSpan)
-        saveButton.remove()
-        cancelButton.remove()
-        li.click()
-        li.click()
-        li.click()
-      });
-      li.appendChild(cancelButton);
-      
-      //style settings for cancelButton
-      cancelButton.style.backgroundColor = "#7e74d7";
-      cancelButton.style.color = "white";
-      cancelButton.style.padding = "5px 7px";
-      cancelButton.style.borderRadius = "0 5px 5px 0";
-      cancelButton.style.cursor = "pointer";
-      cancelButton.style.border = 'none'
+      saveButton.className = 'saveButton'
     });
+    
+    
 
     //appending two main buttons
     li.appendChild(deleteButton);
@@ -120,49 +112,10 @@ function checkInput () {
     document.getElementById("textInput").value = "";
 
     //style settings for buttons
-    editButton.style.backgroundColor = "#d074d7";
-    editButton.style.color = "white";
-    editButton.style.padding = "5px 7px";
-    editButton.style.borderRadius = "5px 0 0 5px";
-    editButton.style.cursor = "pointer";
-    editButton.style.border = 'none'
-    editButton.style.float = "right";
-
-    deleteButton.style.backgroundColor = "#7e74d7";
-    deleteButton.style.color = "white";
-    deleteButton.style.padding = "5px 7px";
-    deleteButton.style.borderRadius = "0 5px 5px 0";
-    deleteButton.style.cursor = "pointer";
-    deleteButton.style.border = 'none'
-    deleteButton.style.float = "right";
-
-    const todoList = document.querySelector("#ulOfTasks");
-    // const newTodoItem = document.querySelector("#textInput");
-    // const addTodoItem = document.querySelector("#button-push");
-
-    // Load to-do items from local storage
-    const loadTodos = () => {
-      const todos = JSON.parse(localStorage.getItem("todos")) || [];
-
-      todos.forEach(todo => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-      ${todo.text}
-      <small>${todo.currentTimeSpan}</small>
-      <button id="editButton" >Edit</button>
-      <button id="deleteButton" >Delete</button>
-    `;
-        todoList.appendChild(li);
-      });
-    };
-
-    // Save to-do items to local storage
-    const saveTodos = todos => {
-      localStorage.setItem("todos", JSON.stringify(todos));
-    };
-
-    loadTodos();
+    editButton.className = 'editButton';
+    deleteButton.className = 'deleteButton';
     
+    const todoList = document.querySelector("#ulOfTasks");
   }
   
 }

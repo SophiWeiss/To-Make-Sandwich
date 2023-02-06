@@ -114,3 +114,43 @@ input:focus {
   max-width: 1000px;
   min-width: 400px;
 }
+
+.editButton {
+  background-color: #d074d7;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+  border: none;
+  float: right;
+}
+
+.deleteButton {
+  background-color: #7e74d7;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  border: none;
+  float: right;
+}
+
+.saveButton {
+  background-color: #d074d7;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+  border: none;
+  float: right;
+}
+
+.cancelButton {
+  background-color: #7e74d7;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  border: none;
+  float: right;
+}
