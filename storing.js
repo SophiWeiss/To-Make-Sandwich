@@ -71,41 +71,42 @@ function editTodo(li) {
   editButton.remove();
   currentTimeSpan.remove();
 
-  let cancelButton = document.createElement("button");
-  cancelButton.appendChild(document.createTextNode("Cancel"));
-  cancelButton.addEventListener("click", function() {
-    li.replaceChild(span, input);
-    li.appendChild(deleteButton);
-    li.appendChild(editButton);
-    li.appendChild(currentTimeSpan);
-    saveButton.remove();
-    cancelButton.remove();
-    li.click();
-    li.click();
-    li.click();
-  });
-  li.appendChild(cancelButton);
-
-  let saveButton = document.createElement("button");
-  saveButton.appendChild(document.createTextNode("Save"));
-  saveButton.addEventListener("click", function() {
-    let span = li.firstChild;
-    span.textContent = input.value;
-    li.removeChild(input);
-    li.insertBefore(span, li.firstChild);
-    li.appendChild(deleteButton);
-    li.appendChild(editButton);
-    li.appendChild(currentTimeSpan);
-    saveButton.remove();
-    cancelButton.remove();
-    li.click();
-    li.click();
-    li.click();
-  });
-  li.appendChild(saveButton);
+  // let cancelButton = document.createElement("button");
+  // cancelButton.appendChild(document.createTextNode("Cancel"));
+  // cancelButton.addEventListener("click", function() {
+  //   li.replaceChild(span, input);
+  //   li.appendChild(deleteButton);
+  //   li.appendChild(editButton);
+  //   li.appendChild(currentTimeSpan);
+  //   saveButton.remove();
+  //   cancelButton.remove();
+  //   li.click();
+  //   li.click();
+  //   li.click();
+  // });
+  // li.appendChild(cancelButton);
+  //
+  // let saveButton = document.createElement("button");
+  // saveButton.appendChild(document.createTextNode("Save"));
+  // saveButton.addEventListener("click", function() {
+  //   let span = li.firstChild;
+  //   span.textContent = input.value;
+  //   li.removeChild(input);
+  //   li.insertBefore(span, li.firstChild);
+  //   li.appendChild(deleteButton);
+  //   li.appendChild(editButton);
+  //   li.appendChild(currentTimeSpan);
+  //   saveButton.remove();
+  //   cancelButton.remove();
+  //   li.click();
+  //   li.click();
+  //   li.click();
+  // });
+  // li.appendChild(saveButton);
 }
 
-function deleteTodo(li) {
+function deleteTodo(event) {
+  let li = event.currentTarget.parentNode;
   let ul = document.getElementById("ulOfTasks");
   ul.removeChild(li);
 }
