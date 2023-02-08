@@ -19,6 +19,20 @@ function createTodoItem(value) {
   li.appendChild(createDeleteButton());
   li.appendChild(createEditButton());
 
+  //done function
+  li.addEventListener("click", function() {
+    if (li.firstElementChild.tagName !== 'INPUT') {
+      if (span.style.textDecoration === "line-through") {
+        span.style.textDecoration = "none";
+        createDeleteButton.style.borderRadius = "0 5px 5px 0";
+      } else {
+        span.style.textDecoration = "line-through";
+        createEditButton.remove()
+        createDeleteButton.style.borderRadius = "5px";
+      }
+    }
+  });
+
   return li;
 }
 
@@ -61,7 +75,7 @@ function editTodo(event) {
   li.replaceChild(input, li.firstChild);
   let deleteButton = li.getElementsByClassName("deleteButton")[0];
   let editButton = li.getElementsByClassName("editButton")[0];
-  let currentTimeSpan = li.getElementsByTagName("span")[1];
+  let currentTimeSpan = li.getElementsByTagName("span")[0];
   deleteButton.remove();
   editButton.remove();
   currentTimeSpan.remove();
@@ -69,6 +83,8 @@ function editTodo(event) {
   let cancelButton = document.createElement("button");
   cancelButton.appendChild(document.createTextNode("Cancel"));
   cancelButton.addEventListener("click", function() {
+    let span = li.getElementsByTagName("span");
+    span.value = input.value;
     li.replaceChild(span, input);
     li.appendChild(deleteButton);
     li.appendChild(editButton);
@@ -79,6 +95,7 @@ function editTodo(event) {
     li.click();
     li.click();
   });
+  cancelButton.className = 'cancelButton';
   li.appendChild(cancelButton);
 
   let saveButton = document.createElement("button");
@@ -97,6 +114,7 @@ function editTodo(event) {
     li.click();
     li.click();
   });
+  saveButton.className = 'saveButton';
   li.appendChild(saveButton);
 }
 
