@@ -1,10 +1,4 @@
-function getInputValue() {
-  return document.getElementById("textInput").value;
-}
-
-function clearInput() {
-  document.getElementById("textInput").value = "";
-}
+const textInput = document.getElementById("textInput")
 
 function showAlert() {
   alert("(👉ﾟヮﾟ)👉 Please enter at least something");
@@ -22,8 +16,8 @@ function createTodoItem(value) {
   li.appendChild(span);
   li.appendChild(createCurrentTime());
 
-  li.appendChild(createEditButton());
   li.appendChild(createDeleteButton());
+  li.appendChild(createEditButton());
 
   return li;
 }
@@ -59,7 +53,8 @@ function addTodo(value) {
   todoList.appendChild(todoItem);
 }
 
-function editTodo(li) {
+function editTodo(event) {
+  let li = event.currentTarget.parentNode;
   let originalText = li.firstChild.firstChild.nodeValue;
   let input = document.createElement("input");
   input.value = originalText;
@@ -71,38 +66,38 @@ function editTodo(li) {
   editButton.remove();
   currentTimeSpan.remove();
 
-  // let cancelButton = document.createElement("button");
-  // cancelButton.appendChild(document.createTextNode("Cancel"));
-  // cancelButton.addEventListener("click", function() {
-  //   li.replaceChild(span, input);
-  //   li.appendChild(deleteButton);
-  //   li.appendChild(editButton);
-  //   li.appendChild(currentTimeSpan);
-  //   saveButton.remove();
-  //   cancelButton.remove();
-  //   li.click();
-  //   li.click();
-  //   li.click();
-  // });
-  // li.appendChild(cancelButton);
-  //
-  // let saveButton = document.createElement("button");
-  // saveButton.appendChild(document.createTextNode("Save"));
-  // saveButton.addEventListener("click", function() {
-  //   let span = li.firstChild;
-  //   span.textContent = input.value;
-  //   li.removeChild(input);
-  //   li.insertBefore(span, li.firstChild);
-  //   li.appendChild(deleteButton);
-  //   li.appendChild(editButton);
-  //   li.appendChild(currentTimeSpan);
-  //   saveButton.remove();
-  //   cancelButton.remove();
-  //   li.click();
-  //   li.click();
-  //   li.click();
-  // });
-  // li.appendChild(saveButton);
+  let cancelButton = document.createElement("button");
+  cancelButton.appendChild(document.createTextNode("Cancel"));
+  cancelButton.addEventListener("click", function() {
+    li.replaceChild(span, input);
+    li.appendChild(deleteButton);
+    li.appendChild(editButton);
+    li.appendChild(currentTimeSpan);
+    saveButton.remove();
+    cancelButton.remove();
+    li.click();
+    li.click();
+    li.click();
+  });
+  li.appendChild(cancelButton);
+
+  let saveButton = document.createElement("button");
+  saveButton.appendChild(document.createTextNode("Save"));
+  saveButton.addEventListener("click", function() {
+    let span = li.firstChild;
+    span.textContent = input.value;
+    li.removeChild(input);
+    li.insertBefore(span, li.firstChild);
+    li.appendChild(deleteButton);
+    li.appendChild(editButton);
+    li.appendChild(currentTimeSpan);
+    saveButton.remove();
+    cancelButton.remove();
+    li.click();
+    li.click();
+    li.click();
+  });
+  li.appendChild(saveButton);
 }
 
 function deleteTodo(event) {
@@ -111,14 +106,14 @@ function deleteTodo(event) {
   ul.removeChild(li);
 }
 
-function checkInput() {
-  let inputValue = getInputValue();
+function onAddButtonClick() {
+  let inputValue = textInput.value;
 
   if (inputValue.trim().length === 0) {
     showAlert();
   } else {
     addTodo(inputValue);
-    clearInput();
+    textInput.value = "";
   }
 }
 
