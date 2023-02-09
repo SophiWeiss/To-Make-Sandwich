@@ -142,7 +142,6 @@ input:focus {
   border-radius: 5px 0 0 5px;
   cursor: pointer;
   border: none;
-  float: right;
 }
 
 .cancelButton {
@@ -152,5 +151,4 @@ input:focus {
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   border: none;
-  float: right;
 }

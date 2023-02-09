@@ -73,6 +73,7 @@ function addTodo(value) {
 
 function editTodo(event) {
   let li = event.currentTarget.parentNode;
+  let span = li.firstChild;
   let originalText = li.firstChild.firstChild.nodeValue;
   let input = document.createElement("input");
   input.value = originalText;
@@ -87,7 +88,6 @@ function editTodo(event) {
   let cancelButton = document.createElement("button");
   cancelButton.appendChild(document.createTextNode("Cancel"));
   cancelButton.addEventListener("click", function() {
-    let span = li.getElementsByTagName("span");
     span.value = input.value;
     li.replaceChild(span, input);
     li.appendChild(deleteButton);
@@ -105,7 +105,6 @@ function editTodo(event) {
   let saveButton = document.createElement("button");
   saveButton.appendChild(document.createTextNode("Save"));
   saveButton.addEventListener("click", function() {
-    let span = li.firstChild;
     span.textContent = input.value;
     li.removeChild(input);
     li.insertBefore(span, li.firstChild);
@@ -119,7 +118,10 @@ function editTodo(event) {
     li.click();
   });
   saveButton.className = 'saveButton';
+  
   li.appendChild(saveButton);
+
+  li.appendChild(cancelButton);
 }
 
 function deleteTodo(event) {
