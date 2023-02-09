@@ -112,8 +112,6 @@ function checkInput () {
     //style settings for buttons
     editButton.className = 'editButton';
     deleteButton.className = 'deleteButton';
-
-    const todoList = document.querySelector("#ulOfTasks");
   }
 
 }
@@ -229,5 +227,16 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
 // window.onload = function() {
 //   displayTasks();
 // };
-
-
+//
+//
+//
+// $("#send-to-telegram").click(function() {
+//   var todoList = $("#todo-list").val();
+//
+//   $.post("https://api.telegram.org/bot" + telegramApiToken + "/sendMessage", {
+//     chat_id: "<YOUR_CHAT_ID>",
+//     text: todoList
+//   }, function(data) {
+//     console.log("Message sent to Telegram.");
+//   });
+// });

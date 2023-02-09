@@ -65,11 +65,23 @@ function createDeleteButton() {
   return deleteButton;
 }
 
-function addTodo(value) {
-  let todoList = getTodoList();
-  let todoItem = createTodoItem(value);
-  todoList.appendChild(todoItem);
+function addTodo(event) {
+  let input = document.getElementById("inputTodo");
+  let li = document.createElement("li");
+  let text = document.createTextNode(input.value);
+  li.appendChild(text);
+  document.getElementById("ulOfTasks").appendChild(li);
+  input.value = "";
+
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let todo = {
+    text: input.value,
+    time: new Date()
+  };
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
+
 
 function editTodo(event) {
   let li = event.currentTarget.parentNode;
@@ -128,6 +140,15 @@ function deleteTodo(event) {
   let li = event.currentTarget.parentNode;
   let ul = document.getElementById("ulOfTasks");
   ul.removeChild(li);
+
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let index = todos.findIndex(function(todo) {
+    return todo.text === li.textContent;
+  });
+  if (index !== -1) {
+    todos.splice(index, 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
 }
 
 function onAddButtonClick() {
@@ -146,3 +167,47 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
     document.getElementById("button-push").click();
   }
 });
+
+
+// Save the to-do list to local storage
+function saveTodoList() {
+  const todoList = getTodoList();
+  const todoListArray = [];
+
+  for (let i = 0; i < todoList.children.length; i++) {
+    todoListArray.push(todoList.children[i].textContent.trim());
+  }
+
+  localStorage.setItem("todoList", JSON.stringify(todoListArray));
+}
+
+// Load the to-do list from local storage
+function loadTodoList() {
+  const todoListArray = JSON.parse(localStorage.getItem("todoList"));
+
+  if (!todoListArray) return;
+
+  const todoList = getTodoList();
+
+  for (let i = 0; i < todoListArray.length; i++) {
+    const todoItem = createTodoItem(todoListArray[i]);
+    todoList.appendChild(todoItem);
+  }
+}
+
+// Call loadTodoList when the page loads
+window.addEventListener("load", loadTodoList);
+
+// Call saveTodoList when a new to-do item is added
+const addButton = document.getElementById("button-push");
+addButton.addEventListener("click", function() {
+  addTodo();
+  saveTodoList();
+});
+
+// Remove a to-do item from local storage
+function removeToDo(index) {
+  let todos = getToDos();
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
