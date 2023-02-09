@@ -22,13 +22,17 @@ function createTodoItem(value) {
   //done function
   li.addEventListener("click", function() {
     if (li.firstElementChild.tagName !== 'INPUT') {
+      let editButton = createEditButton()
+      let deleteButton = li.getElementsByClassName("deleteButton")[0];
       if (span.style.textDecoration === "line-through") {
         span.style.textDecoration = "none";
-        createDeleteButton.style.borderRadius = "0 5px 5px 0";
+        deleteButton.style.borderRadius = "0 5px 5px 0";
+        li.appendChild(editButton);
       } else {
         span.style.textDecoration = "line-through";
-        createEditButton.remove()
-        createDeleteButton.style.borderRadius = "5px";
+        li.getElementsByClassName("editButton")[0].remove();
+        // li.removeChild(createEditButton());
+        deleteButton.style.borderRadius = "5px";
       }
     }
   });
@@ -36,7 +40,7 @@ function createTodoItem(value) {
   return li;
 }
 
-function createCurrentTime() {
+function createCurrentTime() {2
   let currentTime = new Date().toLocaleString();
   let currentTimeSpan = document.createElement("span");
   currentTimeSpan.style.fontSize = "11px";
