@@ -1,121 +1,144 @@
-function checkInput () {
-  
-  let inputValue = document.getElementById("textInput").value;
-  
-  if (inputValue.trim().length === 0) {
-    alert("(👉ﾟヮﾟ)👉 Please enter at least something")
-    
-  }
-  
-  else {
+const textInput = document.getElementById("textInput")
 
-    let ul = document.getElementById("ulOfTasks");
-    let li = document.createElement("li");
+function showAlert() {
+  alert("(👉ﾟヮﾟ)👉 Please enter at least something");
+}
 
-    //current time
-    let currentTime = new Date().toLocaleString();
-    let currentTimeSpan = document.createElement("span");
-    currentTimeSpan.style.fontSize = "11px";
-    currentTimeSpan.style.color = "grey";
-    currentTimeSpan.appendChild(document.createTextNode(" (" + currentTime + ")"));
+function getTodoList() {
+  return document.getElementById("ulOfTasks");
+}
 
-    const span = document.createElement('span')
-    span.textContent = inputValue
-    li.appendChild(span);
-    li.appendChild(currentTimeSpan);
+function createTodoItem(value) {
+  let li = document.createElement("li");
 
-    
-    //edit button
-    let editButton = document.createElement("button");
-    editButton.appendChild(document.createTextNode("Edit"));
+  const span = document.createElement('span')
+  span.textContent = value
+  li.appendChild(span);
+  li.appendChild(createCurrentTime());
 
-    //delete button
-    let deleteButton = document.createElement("button");
-    deleteButton.appendChild(document.createTextNode("Delete"));
+  li.appendChild(createDeleteButton());
+  li.appendChild(createEditButton());
 
-    deleteButton.addEventListener("click", function() {
-      ul.removeChild(li);
-    });
-
-    //done function
-    li.addEventListener("click", function() {
-      if (li.firstElementChild.tagName !== 'INPUT') {
-        if (span.style.textDecoration === "line-through") {
-          span.style.textDecoration = "none";
-          li.appendChild(editButton);
-          deleteButton.style.borderRadius = "0 5px 5px 0";
-        } else {
-          span.style.textDecoration = "line-through";
-          editButton.remove()
-          deleteButton.style.borderRadius = "5px";
-        }
+  //done function
+  li.addEventListener("click", function() {
+    if (li.firstElementChild.tagName !== 'INPUT') {
+      let editButton = createEditButton()
+      let deleteButton = li.getElementsByClassName("deleteButton")[0];
+      if (span.style.textDecoration === "line-through") {
+        span.style.textDecoration = "none";
+        deleteButton.style.borderRadius = "0 5px 5px 0";
+        li.appendChild(editButton);
+      } else {
+        span.style.textDecoration = "line-through";
+        li.getElementsByClassName("editButton")[0].remove();
+        // li.removeChild(createEditButton());
+        deleteButton.style.borderRadius = "5px";
       }
-    });
+    }
+  });
 
-    editButton.addEventListener("click", function() {
-      let originalText = li.firstChild.firstChild.nodeValue;
-      let input = document.createElement("input");
-      input.value = originalText;
-      li.replaceChild(input, li.firstChild);
-      editButton.remove()
-      deleteButton.remove()
-      currentTimeSpan.remove()
+  return li;
+}
 
-      let cancelButton = document.createElement("button");
-      cancelButton.appendChild(document.createTextNode("Cancel"));
-      cancelButton.addEventListener("click", function() {
-        li.replaceChild(span, input)
-        li.appendChild(deleteButton)
-        li.appendChild(editButton)
-        li.appendChild(currentTimeSpan)
-        saveButton.remove()
-        cancelButton.remove()
-        li.click()
-        li.click()
-        li.click()
-      });
-      li.appendChild(cancelButton);
-      
-      //style settings for cancelButton
-      cancelButton.className = 'cancelButton'
+function createCurrentTime() {2
+  let currentTime = new Date().toLocaleString();
+  let currentTimeSpan = document.createElement("span");
+  currentTimeSpan.style.fontSize = "11px";
+  currentTimeSpan.style.color = "grey";
+  currentTimeSpan.appendChild(document.createTextNode(" (" + currentTime + ")"));
+  return currentTimeSpan;
+}
 
-      let saveButton = document.createElement("button");
-      saveButton.appendChild(document.createTextNode("Save"));
-      saveButton.addEventListener("click", function() {
-        span.textContent = input.value
-        li.removeChild(input);
-        li.insertBefore(span, li.firstChild);
-        li.appendChild(deleteButton)
-        li.appendChild(editButton)
-        li.appendChild(currentTimeSpan)
+function createEditButton() {
+  let editButton = document.createElement("button");
+  editButton.appendChild(document.createTextNode("Edit"));
+  editButton.className = 'editButton';
+  editButton.addEventListener("click", editTodo);
+  return editButton;
+}
 
-        saveButton.remove()
-        cancelButton.remove()
-        li.click()
-        li.click()
-        li.click()
-      });
-      li.appendChild(saveButton);
+function createDeleteButton() {
+  let deleteButton = document.createElement("button");
+  deleteButton.appendChild(document.createTextNode("Delete"));
+  deleteButton.className = 'deleteButton';
+  deleteButton.addEventListener("click", deleteTodo);
+  return deleteButton;
+}
 
-      //style settings for saveButton
-      saveButton.className = 'saveButton'
-    });
+function addTodo(value) {
+  let todoList = getTodoList();
+  let todoItem = createTodoItem(value);
+  todoList.appendChild(todoItem);
+}
 
-    //appending two main buttons
+function editTodo(event) {
+  let li = event.currentTarget.parentNode;
+  let span = li.firstChild;
+  let originalText = li.firstChild.firstChild.nodeValue;
+  let input = document.createElement("input");
+  input.value = originalText;
+  li.replaceChild(input, li.firstChild);
+  let deleteButton = li.getElementsByClassName("deleteButton")[0];
+  let editButton = li.getElementsByClassName("editButton")[0];
+  let currentTimeSpan = li.getElementsByTagName("span")[0];
+  deleteButton.remove();
+  editButton.remove();
+  currentTimeSpan.remove();
+
+  let cancelButton = document.createElement("button");
+  cancelButton.appendChild(document.createTextNode("Cancel"));
+  cancelButton.addEventListener("click", function() {
+    span.value = input.value;
+    li.replaceChild(span, input);
     li.appendChild(deleteButton);
     li.appendChild(editButton);
+    li.appendChild(currentTimeSpan);
+    saveButton.remove();
+    cancelButton.remove();
+    li.click();
+    li.click();
+    li.click();
+  });
+  cancelButton.className = 'cancelButton';
+  li.appendChild(cancelButton);
 
-    ul.appendChild(li);
+  let saveButton = document.createElement("button");
+  saveButton.appendChild(document.createTextNode("Save"));
+  saveButton.addEventListener("click", function() {
+    span.textContent = input.value;
+    li.removeChild(input);
+    li.insertBefore(span, li.firstChild);
+    li.appendChild(deleteButton);
+    li.appendChild(editButton);
+    li.appendChild(currentTimeSpan);
+    saveButton.remove();
+    cancelButton.remove();
+    li.click();
+    li.click();
+    li.click();
+  });
+  saveButton.className = 'saveButton';
 
-    document.getElementById("textInput").value = "";
+  li.appendChild(saveButton);
 
-    //style settings for buttons
-    editButton.className = 'editButton';
-    deleteButton.className = 'deleteButton';
-    
-    const todoList = document.querySelector("#ulOfTasks");
+  li.appendChild(cancelButton);
+}
+
+function deleteTodo(event) {
+  let li = event.currentTarget.parentNode;
+  let ul = document.getElementById("ulOfTasks");
+  ul.removeChild(li);
+}
+
+function onAddButtonClick() {
+  let inputValue = textInput.value;
+
+  if (inputValue.trim().length === 0) {
+    showAlert();
+  } else {
+    addTodo(inputValue);
+    textInput.value = "";
   }
-  
 }
 
 document.getElementById("textInput").addEventListener("keydown", function(event) {
@@ -123,111 +146,3 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
     document.getElementById("button-push").click();
   }
 });
-
-//
-//   const taskInput = document.getElementById("textInput");
-//   const addTaskButton = document.getElementById("button-push");
-//   const tasksList = document.getElementById("ulOfTasks");
-//
-//   // Check if there are any tasks stored in local storage
-//   if (localStorage.getItem("tasks")) {
-//   // If there are, retrieve the tasks and display them
-//   let tasks = JSON.parse(localStorage.getItem("tasks"));
-//   tasks.forEach(function (task) {
-//   let taskItem = document.createElement("li");
-//   taskItem.innerHTML = task;
-//   tasksList.appendChild(taskItem);
-// });
-// }
-//
-//   // Add a task to the list and store it in local storage
-//   addTaskButton.addEventListener("click", function () {
-//   let task = taskInput.value;
-//   if (task) {
-//   let taskItem = document.createElement("li");
-//   taskItem.innerHTML = task;
-//   tasksList.appendChild(taskItem);
-//
-//   let tasks = [];
-//   if (localStorage.getItem("tasks")) {
-//   tasks = JSON.parse(localStorage.getItem("tasks"));
-// }
-//   tasks.push(task);
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-//
-//   taskInput.value = "";
-// }
-// });
-
-
-// // Save the tasks to local storage
-// function saveTasksToLocalStorage() {
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-// }
-//
-// // Load the tasks from local storage
-// function loadTasksFromLocalStorage() {
-//   const storedTasks = localStorage.getItem("tasks");
-//   if (storedTasks) {
-//     tasks = JSON.parse(storedTasks);
-//   }
-// }
-//
-// // Call loadTasksFromLocalStorage when the page loads
-// window.addEventListener("load", loadTasksFromLocalStorage);
-//
-// // Call saveTasksToLocalStorage when the page unloads (e.g. when the user closes the tab)
-// window.addEventListener("beforeunload", saveTasksToLocalStorage);
-
-
-// let tasks = [];
-//
-// function addTask() {
-//   let task = document.getElementById("textInput").value;
-//   tasks.push(task);
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-//   displayTasks();
-// }
-//
-// window.onload = function() {
-//   tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-//   displayTasks();
-// };
-
-// // Get the task input field
-// let taskInput = document.getElementById("textInput");
-
-// // Check if the tasks are stored in local storage
-// if (localStorage.getItem("tasks")) {
-//   tasks = JSON.parse(localStorage.getItem("tasks"));
-// } else {
-//   tasks = [];
-// }
-//
-// // Add a new task to the list
-// function addTask() {
-//   let task = taskInput.value;
-//   tasks.push(task);
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-//   taskInput.value = "";
-//   displayTasks();
-// }
-//
-// // Display the tasks
-// function displayTasks() {
-//   let taskList = document.getElementById("taskList");
-//   taskList.innerHTML = "";
-//   for (let i = 0; i < tasks.length; i++) {
-//     let task = tasks[i];
-//     let li = document.createElement("li");
-//     li.innerHTML = task;
-//     taskList.appendChild(li);
-//   }
-// }
-//
-// // Call the displayTasks function when the page loads
-// window.onload = function() {
-//   displayTasks();
-// };
-
-
