@@ -40,7 +40,7 @@ function createTodoItem(value) {
   return li;
 }
 
-function createCurrentTime() {2
+function createCurrentTime() {
   let currentTime = new Date().toLocaleString();
   let currentTimeSpan = document.createElement("span");
   currentTimeSpan.style.fontSize = "11px";
