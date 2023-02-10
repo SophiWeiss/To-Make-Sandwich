@@ -88,7 +88,7 @@ function editTodo(event) {
 
   let cancelButton = document.createElement("button");
   cancelButton.appendChild(document.createTextNode("Cancel"));
-  cancelButton.addEventListener("click", function() {
+  cancelButton.addEventListener("click", function(event) {
     span.value = input.value;
     li.replaceChild(span, input);
     li.appendChild(deleteButton);
@@ -96,16 +96,14 @@ function editTodo(event) {
     li.appendChild(currentTimeSpan);
     saveButton.remove();
     cancelButton.remove();
-    li.click();
-    li.click();
-    li.click();
+    event.stopPropagation();
   });
   cancelButton.className = 'cancelButton';
   li.appendChild(cancelButton);
 
   let saveButton = document.createElement("button");
   saveButton.appendChild(document.createTextNode("Save"));
-  saveButton.addEventListener("click", function() {
+  saveButton.addEventListener("click", function(event) {
     span.textContent = input.value;
     li.removeChild(input);
     li.insertBefore(span, li.firstChild);
@@ -114,9 +112,7 @@ function editTodo(event) {
     li.appendChild(currentTimeSpan);
     saveButton.remove();
     cancelButton.remove();
-    li.click();
-    li.click();
-    li.click();
+    event.stopPropagation();
   });
   saveButton.className = 'saveButton';
 
