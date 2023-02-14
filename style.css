@@ -160,7 +160,3 @@ input:focus {
   margin-bottom: 20px;
   background: linear-gradient(to right, lightblue, pink);
 }
-
-#progressBar {
-  outline: none;
-}
