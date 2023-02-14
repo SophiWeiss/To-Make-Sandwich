@@ -173,6 +173,9 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
 
 function updateProgressBar() {
   let percentage = (completedTodos / totalTodos) * 100;
+  if (!totalTodos) {
+    percentage = 0
+  }
   progressBar.style.width = percentage + "%";
 }
 
