@@ -154,7 +154,7 @@ input:focus {
 }
 
 #progress-bar {
-  width: 400px;
+  width: 0;
   height: 20px;
   position: relative;
   margin-bottom: 20px;
