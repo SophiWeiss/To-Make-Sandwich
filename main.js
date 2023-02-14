@@ -147,6 +147,9 @@ function deleteTodo(event) {
     todos.splice(index, 1);
     localStorage.setItem("todos", JSON.stringify(todos));
   }
+  if (li.style.textDecoration === "line-through") {
+    completedTodos--;
+  }
   totalTodos--;
   updateProgressBar();
 }
