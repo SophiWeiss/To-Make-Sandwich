@@ -1,5 +1,10 @@
 const textInput = document.getElementById("textInput")
 
+let totalTodos = 0;
+let completedTodos = 0;
+const progressBar = document.getElementById("progress-bar");
+
+
 function showAlert() {
   alert("(👉ﾟヮﾟ)👉 Please enter at least something");
 }
@@ -35,6 +40,12 @@ function createTodoItem(value) {
         deleteButton.style.borderRadius = "5px";
       }
     }
+    if (span.style.textDecoration === "line-through") {
+      completedTodos++;
+    } else {
+      completedTodos--;
+    }
+    updateProgressBar();
   });
 
   return li;
@@ -69,6 +80,8 @@ function addTodo(value) {
   let todoList = getTodoList();
   let todoItem = createTodoItem(value);
   todoList.appendChild(todoItem);
+  totalTodos++;
+  updateProgressBar();
 }
 
 
@@ -134,6 +147,8 @@ function deleteTodo(event) {
     todos.splice(index, 1);
     localStorage.setItem("todos", JSON.stringify(todos));
   }
+  totalTodos--;
+  updateProgressBar();
 }
 
 function onAddButtonClick() {
@@ -153,3 +168,20 @@ document.getElementById("textInput").addEventListener("keydown", function(event)
   }
 });
 
+function updateProgressBar() {
+  let percentage = (completedTodos / totalTodos) * 100;
+  progressBar.style.width = percentage + "%";
+}
+
+// // let li = createTodoItem(li).currentTarget.parentNode;
+//
+// const key = 'to-do-items';
+// const value = "cococoocococo";
+//
+// localStorage.setItem(key, value);
+//
+// const coco = localStorage.getItem(key)
+//
+// const li = document.createElement('li')
+// li.textContent = `Hi! I am ${coco}`
+// document.body.appendChild(li)

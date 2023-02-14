@@ -152,3 +152,15 @@ input:focus {
   cursor: pointer;
   border: none;
 }
+
+#progress-bar {
+  width: 400px;
+  height: 20px;
+  position: relative;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, lightblue, pink);
+}
+
+#progressBar {
+  outline: none;
+}
