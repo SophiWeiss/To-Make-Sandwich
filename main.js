@@ -135,19 +135,21 @@ function editTodo(event) {
 }
 
 function deleteTodo(event) {
+  event.stopPropagation();
   let li = event.currentTarget.parentNode;
   let ul = document.getElementById("ulOfTasks");
   ul.removeChild(li);
 
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
-  let index = todos.findIndex(function(todo) {
-    return todo.text === li.textContent;
-  });
-  if (index !== -1) {
-    todos.splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
-  if (li.style.textDecoration === "line-through") {
+  // let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  // let index = todos.findIndex(function(todo) {
+  //   return todo.text === li.textContent;
+  // });
+  // if (index !== -1) {
+  //   todos.splice(index, 1);
+  //   localStorage.setItem("todos", JSON.stringify(todos));
+  // }
+  let spam = li.firstChild;
+  if (spam.style.textDecoration === "line-through") {
     completedTodos--;
   }
   totalTodos--;
