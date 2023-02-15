@@ -158,5 +158,5 @@ input:focus {
   height: 20px;
   position: relative;
   margin-bottom: 20px;
-  background: linear-gradient(to right, #8edffc, #ee84d7);
+  transition: width .3s, background-color .3s;
 }
