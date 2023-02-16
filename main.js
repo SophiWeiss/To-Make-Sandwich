@@ -45,10 +45,6 @@ function createTodoItem(value) {
       updateProgressBar();
     }
   });
-  let itemsArray = JSON.parse(localStorage.getItem(key)) || [];
-  
-  itemsArray.push(value);
-  localStorage.setItem(key, JSON.stringify(itemsArray));
 
   return li;
 }
@@ -161,6 +157,11 @@ function onAddButtonClick() {
   } else {
     addTodo(inputValue);
     textInput.value = "";
+    let itemsArray = JSON.parse(localStorage.getItem(key)) || [];
+
+    itemsArray.push(inputValue);
+    localStorage.setItem(key, JSON.stringify(itemsArray));
+
   }
 }
 
