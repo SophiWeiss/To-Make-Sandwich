@@ -174,7 +174,7 @@ function updateProgressBar() {
   let RGBArray1 = [238, 132, 215].map(x => percentage * x)
   let RGBArray2 = [142, 223, 252].map(x => (1 - percentage) * x)
   let RGBArray =  Array.from({length: 3}).map((_, index) => RGBArray1[index] + RGBArray2[index])
-  progressBar.style.background = `rgb(${RGBArray[0]}, ${RGBArray[1]}, ${RGBArray[2]})`
+  progressBar.style.background = `rgb(${RGBArray})`
 }
 
 // // let li = createTodoItem(li).currentTarget.parentNode;
