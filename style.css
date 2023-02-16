@@ -53,10 +53,8 @@ h1 {
   cursor: pointer;
   display: inline-flex;
   font-family: 'Russo One', sans-serif;
-  height: 48px;
+  height: 50px;
   justify-content: center;
-  line-height: 1;
-  list-style: none;
   overflow: hidden;
   padding-left: 16px;
   padding-right: 16px;
@@ -70,10 +68,7 @@ h1 {
   white-space: nowrap;
   will-change: box-shadow,transform;
   font-size: 15px;
-}
-
-.addElement:focus {
-  box-shadow: #D6D6E7 0 0 0 2px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  margin: 0 10px;
 }
 
 .addElement:hover {
@@ -88,6 +83,7 @@ h1 {
 
 .addBox {
   padding: 20px 20px;
+  display: flex;
 }
 
 input {
@@ -95,12 +91,12 @@ input {
   border-radius: 7px;
   width: 75%;
   padding: 10px;
-  margin: -0 7px 7px -3px;
   height: 50px;
 
   font-size: 19px;
   background-color: #f1eeff;
   font-family: 'Nunito', sans-serif;
+  flex: 1;
 }
 
 input:focus {
@@ -115,17 +111,36 @@ input:focus {
   min-width: 400px;
 }
 
+.slide-out {
+  translate: 100% 0;
+  transition: translate .3s;
+}
+
+@keyframes slide {
+  from {
+    translate: 100% 0;
+  }
+  to {
+    translate: none;
+  }
+}
+
 .editButton {
+  position: absolute;
+  right: 82px;
+  z-index: 0;
   background-color: #d074d7;
   color: white;
   padding: 5px 7px;
   border-radius: 5px 0 0 5px;
   cursor: pointer;
   border: none;
-  float: right;
+  animation: slide .3s;
 }
 
 .deleteButton {
+  position: absolute;
+  right: 30px;
   background-color: #7e74d7;
   color: white;
   padding: 5px 7px;
@@ -133,6 +148,8 @@ input:focus {
   cursor: pointer;
   border: none;
   float: right;
+  transition: border-radius .3s;
+  z-index: 1;
 }
 
 .saveButton {
