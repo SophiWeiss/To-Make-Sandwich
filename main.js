@@ -1,5 +1,7 @@
 const textInput = document.getElementById("textInput")
 
+const key = 'to-do-items';
+
 let totalTodos = 0;
 let completedTodos = 0;
 const progressBar = document.getElementById("progress-bar");
@@ -38,12 +40,15 @@ function createTodoItem(value) {
         span.style.textDecoration = "line-through";
         completedTodos++;
         li.getElementsByClassName("editButton")[0].remove();
-        // li.removeChild(createEditButton());
         deleteButton.style.borderRadius = "5px";
       }
       updateProgressBar();
     }
   });
+  let itemsArray = JSON.parse(localStorage.getItem(key)) || [];
+  
+  itemsArray.push(value);
+  localStorage.setItem(key, JSON.stringify(itemsArray));
 
   return li;
 }
@@ -177,15 +182,31 @@ function updateProgressBar() {
   progressBar.style.background = `rgb(${RGBArray})`
 }
 
-// // let li = createTodoItem(li).currentTarget.parentNode;
-//
+let todoItems = JSON.parse(localStorage.getItem(key));
+
+if (todoItems) {
+ todoItems.forEach(todoItem => {
+   addTodo(todoItem)
+   // const li = document.createElement("li");
+   // li.textContent = todoItem;
+   // document.body.appendChild(li);
+ })
+}
+
+
+
+
+// let li = createTodoItem(li).currentTarget.parentNode;
+
 // const key = 'to-do-items';
-// const value = "cococoocococo";
+// let li = document.getElementById("li");
+// // li.textContent = 'hi';
+// const value = li.textContent;
 //
 // localStorage.setItem(key, value);
-//
+
 // const coco = localStorage.getItem(key)
-//
+
 // const li = document.createElement('li')
 // li.textContent = `Hi! I am ${coco}`
 // document.body.appendChild(li)
