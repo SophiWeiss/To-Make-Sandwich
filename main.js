@@ -186,17 +186,12 @@ function updateProgressBar() {
   progressBar.style.background = `rgb(${RGBArray})`
 }
 
-let todoItems = JSON.parse(localStorage.getItem(key));
+let todoItems = JSON.parse(localStorage.getItem(key)) || {};
+let maxId = Object.values(todoItems).length !== 0 ? Math.max(...Object.keys(todoItems).map(id => parseInt(id))) + 1 : 0
 
-if (todoItems) {
- todoItems.forEach(todoItem => {
-   addTodo(todoItem)
-   // const li = document.createElement("li");
-   // li.textContent = todoItem;
-   // document.body.appendChild(li);
- })
-}
-
+Object.entries(todoItems).forEach(([todoId, todoItem]) => {
+ addTodo(todoItem, todoId)
+})
 
 
 
