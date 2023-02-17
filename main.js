@@ -77,9 +77,10 @@ function createDeleteButton() {
   return deleteButton;
 }
 
-function addTodo(value) {
+function addTodo(value, id) {
   let todoList = getTodoList();
   let todoItem = createTodoItem(value);
+  todoItem.id = id
   todoList.appendChild(todoItem);
   totalTodos++;
   updateProgressBar();
@@ -150,6 +151,11 @@ function deleteTodo(event) {
   }
   totalTodos--;
   updateProgressBar();
+
+  let itemId = li.id;
+  let items = JSON.parse(localStorage.getItem(key))
+  delete items[itemId];
+  localStorage.setItem(key, JSON.stringify(items));
 }
 
 function onAddButtonClick() {
@@ -158,13 +164,14 @@ function onAddButtonClick() {
   if (inputValue.trim().length === 0) {
     showAlert();
   } else {
-    addTodo(inputValue);
+    addTodo(inputValue, maxId);
     textInput.value = "";
-    let itemsArray = JSON.parse(localStorage.getItem(key)) || [];
+    let items = JSON.parse(localStorage.getItem(key)) || {};
+    
+    items[maxId] = inputValue
 
-    itemsArray.push(inputValue);
-    localStorage.setItem(key, JSON.stringify(itemsArray));
-
+    localStorage.setItem(key, JSON.stringify(items));
+    maxId++
   }
 }
 
