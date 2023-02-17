@@ -116,6 +116,10 @@ input:focus {
   transition: translate .3s;
 }
 
+.slide-in {
+  animation: slide .3s;
+}
+
 @keyframes slide {
   from {
     translate: 100% 0;
@@ -135,7 +139,6 @@ input:focus {
   border-radius: 5px 0 0 5px;
   cursor: pointer;
   border: none;
-  animation: slide .3s;
 }
 
 .deleteButton {
@@ -159,6 +162,8 @@ input:focus {
   border-radius: 5px 0 0 5px;
   cursor: pointer;
   border: none;
+  position: absolute;
+  right: 82px;
 }
 
 .cancelButton {
@@ -168,6 +173,8 @@ input:focus {
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   border: none;
+  position: absolute;
+  right: 30px;
 }
 
 #progress-bar {

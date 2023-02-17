@@ -29,17 +29,20 @@ function createTodoItem(value) {
   //done function
   li.addEventListener("click", function() {
     if (li.firstElementChild.tagName !== 'INPUT') {
-      let editButton = createEditButton()
       let deleteButton = li.getElementsByClassName("deleteButton")[0];
       if (span.style.textDecoration === "line-through") {
         completedTodos--;
         span.style.textDecoration = "none";
-        deleteButton.style.borderRadius = "0 5px 5px 0";
+        let editButton = createEditButton()
+        editButton.classList.add('slide-in')
         li.appendChild(editButton);
+        deleteButton.style.borderRadius = "0 5px 5px 0";
       } else {
-        span.style.textDecoration = "line-through";
         completedTodos++;
-        li.getElementsByClassName("editButton")[0].remove();
+        span.style.textDecoration = "line-through";
+        let editButton = li.getElementsByClassName("editButton")[0]
+        editButton.classList.add('slide-out')
+        setTimeout(() => editButton.remove(), 300)
         deleteButton.style.borderRadius = "5px";
       }
       updateProgressBar();
