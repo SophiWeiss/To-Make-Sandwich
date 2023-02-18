@@ -202,7 +202,7 @@ function updateProgressBar() {
 let todoItems = JSON.parse(localStorage.getItem(key)) || {};
 let maxId = Object.values(todoItems).length !== 0 ? Math.max(...Object.keys(todoItems).map(id => parseInt(id))) + 1 : 0
 
-Object.entries(todoItems).forEach(([todoId, todoItem, done]) => {
+Object.entries(todoItems).forEach(([todoId, todoItem]) => {
  addTodo(todoItem, todoId)
 })
 
