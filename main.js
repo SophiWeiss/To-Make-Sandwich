@@ -15,16 +15,31 @@ function getTodoList() {
   return document.getElementById("ulOfTasks");
 }
 
-function createTodoItem(value) {
+function markDone(span, li, deleteButton) {
+  completedTodos++;
+  span.style.textDecoration = "line-through";
+  let editButton = li.getElementsByClassName("editButton")[0]
+  deleteButton.style.borderRadius = "5px";
+  if (editButton) {
+    editButton.classList.add('slide-out')
+    setTimeout(() => editButton.remove(), 300)
+  }
+}
+
+function createTodoItem(text, time, done) {
   let li = document.createElement("li");
 
   const span = document.createElement('span')
-  span.textContent = value
+  span.textContent = text
   li.appendChild(span);
-  li.appendChild(createCurrentTime());
+  li.appendChild(createCurrentTime(time));
 
   li.appendChild(createDeleteButton());
-  li.appendChild(createEditButton());
+
+  if (done)
+    markDone(span, li, li.getElementsByClassName("deleteButton")[0])
+  else
+    li.appendChild(createEditButton());
 
   //done function
   li.addEventListener("click", function() {
@@ -37,13 +52,14 @@ function createTodoItem(value) {
         editButton.classList.add('slide-in')
         li.appendChild(editButton);
         deleteButton.style.borderRadius = "0 5px 5px 0";
+        let todoItems = JSON.parse(localStorage.getItem(key));
+        todoItems[li.id].done = false
+        localStorage.setItem(key, JSON.stringify(todoItems));
       } else {
-        completedTodos++;
-        span.style.textDecoration = "line-through";
-        let editButton = li.getElementsByClassName("editButton")[0]
-        editButton.classList.add('slide-out')
-        setTimeout(() => editButton.remove(), 300)
-        deleteButton.style.borderRadius = "5px";
+        markDone(span, li, deleteButton)
+        let todoItems = JSON.parse(localStorage.getItem(key));
+        todoItems[li.id].done = true
+        localStorage.setItem(key, JSON.stringify(todoItems));
       }
       updateProgressBar();
     }
@@ -52,8 +68,8 @@ function createTodoItem(value) {
   return li;
 }
 
-function createCurrentTime() {
-  let currentTime = new Date().toLocaleString();
+function createCurrentTime(time) {
+  let currentTime = new Date(time).toLocaleString();
   let currentTimeSpan = document.createElement("span");
   currentTimeSpan.style.fontSize = "11px";
   currentTimeSpan.style.color = "grey";
@@ -77,9 +93,9 @@ function createDeleteButton() {
   return deleteButton;
 }
 
-function addTodo(value, id) {
+function addTodo(id, text, time, done) {
   let todoList = getTodoList();
-  let todoItem = createTodoItem(value);
+  let todoItem = createTodoItem(text, time, done);
   todoItem.id = id
   todoList.appendChild(todoItem);
   totalTodos++;
@@ -134,7 +150,7 @@ function editTodo(event) {
 
     let itemId = li.id;
     let items = JSON.parse(localStorage.getItem(key))
-    items[itemId] = span.textContent;
+    items[itemId].text = span.textContent;
     localStorage.setItem(key, JSON.stringify(items));
     
   });
@@ -170,11 +186,16 @@ function onAddButtonClick() {
   if (inputValue.trim().length === 0) {
     showAlert();
   } else {
-    addTodo(inputValue, maxId);
+    let currentTime = Date.now()
+    addTodo(maxId, inputValue, currentTime, false);
     textInput.value = "";
     let items = JSON.parse(localStorage.getItem(key)) || {};
     
-    items[maxId] = inputValue
+    items[maxId] = {
+      text: inputValue,
+      time: currentTime,
+      done: false
+    }
 
     localStorage.setItem(key, JSON.stringify(items));
     maxId++
@@ -202,8 +223,8 @@ function updateProgressBar() {
 let todoItems = JSON.parse(localStorage.getItem(key)) || {};
 let maxId = Object.values(todoItems).length !== 0 ? Math.max(...Object.keys(todoItems).map(id => parseInt(id))) + 1 : 0
 
-Object.entries(todoItems).forEach(([todoId, todoItem]) => {
- addTodo(todoItem, todoId)
+Object.entries(todoItems).forEach(([todoId, {text, time, done}]) => {
+ addTodo(todoId, text, time, done)
 })
 
 
