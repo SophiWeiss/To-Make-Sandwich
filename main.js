@@ -131,6 +131,12 @@ function editTodo(event) {
     saveButton.remove();
     cancelButton.remove();
     event.stopPropagation();
+
+    let itemId = li.id;
+    let items = JSON.parse(localStorage.getItem(key))
+    items[itemId] = span.textContent;
+    localStorage.setItem(key, JSON.stringify(items));
+    
   });
   saveButton.className = 'saveButton';
 
@@ -196,7 +202,7 @@ function updateProgressBar() {
 let todoItems = JSON.parse(localStorage.getItem(key)) || {};
 let maxId = Object.values(todoItems).length !== 0 ? Math.max(...Object.keys(todoItems).map(id => parseInt(id))) + 1 : 0
 
-Object.entries(todoItems).forEach(([todoId, todoItem]) => {
+Object.entries(todoItems).forEach(([todoId, todoItem, done]) => {
  addTodo(todoItem, todoId)
 })
 
