@@ -137,22 +137,25 @@ function editTodo(event) {
   let saveButton = document.createElement("button");
   saveButton.appendChild(document.createTextNode("Save"));
   saveButton.addEventListener("click", function(event) {
-    event.stopPropagation();
-    span.textContent = input.value;
-    li.removeChild(input);
-    li.insertBefore(span, li.firstChild);
-    li.appendChild(deleteButton);
-    li.appendChild(editButton);
-    li.appendChild(currentTimeSpan);
-    saveButton.remove();
-    cancelButton.remove();
-    event.stopPropagation();
+    if (input.value.trim().length === 0) {
+      showAlert()}
+    else {
+      event.stopPropagation();
+      span.textContent = input.value;
+      li.removeChild(input);
+      li.insertBefore(span, li.firstChild);
+      li.appendChild(deleteButton);
+      li.appendChild(editButton);
+      li.appendChild(currentTimeSpan);
+      saveButton.remove();
+      cancelButton.remove();
+      event.stopPropagation();
 
-    let itemId = li.id;
-    let items = JSON.parse(localStorage.getItem(key))
-    items[itemId].text = span.textContent;
-    localStorage.setItem(key, JSON.stringify(items));
-    
+      let itemId = li.id;
+      let items = JSON.parse(localStorage.getItem(key))
+      items[itemId].text = span.textContent;
+      localStorage.setItem(key, JSON.stringify(items));
+    }
   });
   saveButton.className = 'saveButton';
 
